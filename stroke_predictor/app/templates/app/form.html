@@ -1,0 +1,78 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static %}
+
+<h2 class="display-4 text-center">Input your health information</h2>
+<form method="post" action="{% url 'app:result' %}">
+    {% csrf_token %}
+    {% if errorMessage %}
+        <br>
+        <div class="alert alert-danger">
+        {{ errorMessage }}
+        </div>
+    {% endif %}   
+    <div class="form-group">
+        <label for ="">Gender</label> 
+        <select name="gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select> 
+    </div>
+    <div class="form-group">
+        <label for ="">Age</label> 
+        <input type="number" class="form-control" name="age"> 
+    </div>
+    <div class="form-group row">
+        <div class="col-md-4 text-center">
+            <label for ="">Hypertension</label> 
+            <input type="checkbox" class="form-check-label" name="hypertension">    
+        </div>
+        <div class="col-md-4 text-center">
+            <label for ="">Heart disease</label> 
+            <input type="checkbox" class="form-check-label" name="heart_disease">    
+
+        </div>
+        <div class="col-md-4 text-center">
+            <label for ="">Ever married</label> 
+            <input type="checkbox" class="form-check-label" name="ever_married">    
+        </div>
+    </div> 
+    <div class="form-group">
+        <label for ="">Work type</label> 
+        <select name="work_type" class="form-control">
+            <option value="Private">Private</option>
+            <option value="Self-employed">Self-employed</option>
+            <option value="Govt_job">Government job</option>
+            <option value="Never_worked">Never worked</option>
+            <option value="children">Underage</option>
+        </select>     
+    </div>
+    <div class="form-group">
+        <label for ="">Residence type</label> 
+        <select name="Residence_type" class="form-control">
+            <option value="Urban">Urban</option>
+            <option value="Rural">Rural</option>
+        </select> 
+    </div>
+    <div class="form-group">
+        <label for ="">Average glucose level (mg/dL)</label> 
+        <input type="number"  class="form-control" name="avg_glucose_level">    
+    </div>
+    <div class="form-group">
+        <label for ="">Body mass index (BMI)</label> 
+        <input type="number" class="form-control" name="bmi">
+    </div>
+    <div class="form-group">
+        <label for ="">Smoking status</label> 
+        <select name="smoking_status" class="form-control">
+            <option value="never smoked">Never smoked</option>
+            <option value="formerly smoked">Former smoker</option>
+            <option value="smokes">Smoker</option>
+        </select>     
+    </div>
+    <input type="submit"  class="form-control btn btn-primary" value="Test Yourself">
+</form>
+<br><br>
+
+
+{% endblock %}

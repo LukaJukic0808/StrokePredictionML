@@ -1,0 +1,194 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Gender</th>
+                <td class="font-italic">{{ gender }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Age</th>
+                <td class="font-italic">{{ age }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Hypertension</th>
+                <td class="font-italic">
+                    {% if hypertension %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Heart disease</th>
+                <td class="font-italic">
+                    {% if heart_disease %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Ever married</th>
+                <td class="font-italic">
+                    {% if ever_married %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Average glucose level</th>
+                <td class="font-italic">{{ avg_glucose_level }} mg/dL</td>
+              </tr>
+              <tr>
+                <th scope="row">Body mass index (BMI)</th>
+                <td class="font-italic">{{ bmi }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Work type</th>
+                <td class="font-italic">
+                    {% if work_type == "children" %}
+                        Underage
+                    {% elif work_type == "Never_worked" %}
+                        Never worked
+                    {% elif work_type == "Govt_job" %}
+                        Government job
+                    {% else %}
+                        {{ work_type }}
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Residence type</th>
+                <td class="font-italic">{{ Residence_type }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Smoking status</th>
+                <td class="font-italic">{{ smoking_status }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="col-md-6">
+        {% if stroke %}
+            <br>
+            <div class="alert alert-danger font-weight-bold">
+                Warning! Your chances of having a stroke are high!
+            </div>
+            <div class="alert alert-danger font-weight-bold">
+                {{ neighbors }} out of 3 people most similar to You have had a stroke.
+            </div>
+        {% else %}
+            <br>
+            <div class="alert alert-success font-weight-bold">
+                Good news! Your chances of having a stroke are low!
+            </div>
+            <div class="alert alert-success font-weight-bold">
+                {{ neighbors }} out of 3 people most similar to You never had a stroke.
+            </div>
+        {% endif %} 
+
+        {% if ageUpperFlag %}
+            <div class="alert alert-secondary font-weight-bold">
+                You are in the top {{ agePercentage }}% oldest people sampled.
+            </div>
+        {% else %}
+            <div class="alert alert-secondary font-weight-bold">
+                You are in the top {{ agePercentage }}% youngest people sampled.
+            </div>
+        {% endif %} 
+
+        {% if bmiUpperFlag %}
+            <div class="alert alert-warning font-weight-bold">
+                You are in the top {{ bmiPercentage }}% of people with highest BMI.
+            </div>
+        {% else %}
+            <div class="alert alert-secondary font-weight-bold">
+                You are in the top {{ bmiPercentage }}% of people with lowest BMI.
+            </div>
+        {% endif %} 
+
+        {% if glucoseUpperFlag %}
+            <div class="alert alert-warning font-weight-bold">
+                You are in the top {{ glucosePercentage }}% of people with highest glucose level.
+            </div>
+        {% else %}
+            <div class="alert alert-secondary font-weight-bold">
+                You are in the top {{ glucosePercentage }}% of people with lowest glucose level.
+            </div>
+        {% endif %} 
+    </div>
+</div>
+
+{% if stroke %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/StrokeByGender.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke By gender">
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/StrokeByHeartDisease.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by heart disease">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/StrokeByHypertension.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by hypertension">
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/StrokeBySmokingStatus.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by smoking status">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/StrokeByAge.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by age">
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/StrokeByBMI.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by BMI">
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/StrokeByGlucoseLevel.png' %}" class="rounded mx-auto d-block img-fluid" alt="Stroke by glucose level">
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/NoStrokeByGender.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke By gender">
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/NoStrokeByHeartDisease.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by heart disease">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/NoStrokeByHypertension.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by hypertension">
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-6 thumb">
+            <img src="{% static 'app/NoStrokeBySmokingStatus.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by smoking status">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/NoStrokeByAge.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by age">
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/NoStrokeByBMI.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by BMI">
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+            <img src="{% static 'app/NoStrokeByGlucoseLevel.png' %}" class="rounded mx-auto d-block img-fluid" alt="No Stroke by glucose level">
+        </div>
+    </div>
+{% endif %} 
+<br><br>
+{% endblock %}

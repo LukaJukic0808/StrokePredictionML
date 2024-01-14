@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% load static %}
+
+<h2 class="display-4 text-center">General statistics about sampled patients</h2>
+<br><br>
+<div class="row">
+
+    <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+        <img src="{% static 'app/NumberOfPatientsByAge.png' %}" class="rounded mx-auto d-block img-fluid" alt="Number of patients by age">
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+        <img src="{% static 'app/NumberOfPatientsByBMI.png' %}" class="rounded mx-auto d-block img-fluid" alt="Number of patients by BMI">
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+        <img src="{% static 'app/NumberOfPatientsByGlucoseLevel.png' %}" class="rounded mx-auto d-block img-fluid" alt="Number of patients by glucose level">
+
+    </div>
+</div>
+
+<br><br>
+
+{% endblock %}
