@@ -2,7 +2,7 @@
 
 ## Instructions
 <ol>
-  <li>Install <a href="https://docs.djangoproject.com/en/5.0/howto/windows/">Python</a></li>
+  <li>Install <a href="https://docs.djangoproject.com/en/5.0/howto/windows/#install-python">Python</a></li>
   <li>Clone this repository</li>
   <li>In git bash, go to project repository:</li>
 
