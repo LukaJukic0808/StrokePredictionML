@@ -1,4 +1,4 @@
-## TITLE: "Stroke Predictor: Test your heart!"
+## TITLE: "Stroke Predictor: Test your brain!"
 
 ## Instructions
 <ol>
