@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse 
-from app.functions import getPercentageFromInterval, minMaxScaleByType
+from app.functions import getPercentageFromInterval, minMaxScaleByType, callEndpoint
 
 
 def home(request):
@@ -99,12 +99,19 @@ def result(request):
         payload[request.POST['smoking_status']] = 1
 
         ######## API zahtjev #############
+        stroke, strokeProbability = callEndpoint(payload=payload)
+
+        if (stroke == 1):
+            neighbors = round(strokeProbability * 3)
+        else:
+            neighbors = round((1 - strokeProbability)*3)
+
 
         percentages = getPercentageFromInterval(formAge, formBMI, formGlucose)
     
         context = {
-            "stroke": 0, #ovo treba bit iz apia
-            "neighbors": 3, #ovo treba bit iz apia
+            "stroke": stroke, 
+            "neighbors": neighbors, 
             "age": formAge,
             "bmi": formBMI,
             "avg_glucose_level": formGlucose,
