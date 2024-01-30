@@ -1,5 +1,7 @@
 ## TITLE: "Stroke Predictor: Test your brain!"
 
+## Developed by: Antonio Veselčić, Matan Buljubašić and Luka Jukić
+
 ## Instructions
 <ol>
   <li>Install <a href="https://docs.djangoproject.com/en/5.0/howto/windows/#install-python">Python</a></li>
