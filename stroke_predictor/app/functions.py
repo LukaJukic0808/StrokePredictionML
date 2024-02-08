@@ -101,7 +101,7 @@ def callEndpoint(payload):
 
 def load_to_db():
 
-    with open('app\healthcare-dataset-stroke-data.csv') as csv_file:
+    with open('app\dataset\healthcare-dataset-stroke-data.csv') as csv_file:
         data = csv.reader(csv_file, delimiter=',')
         next(data)
         for row in data:
