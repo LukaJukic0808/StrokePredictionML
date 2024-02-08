@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse 
-from app.functions import getPercentageFromInterval, minMaxScaleByType, callEndpoint
+from app.functions import getPercentageFromInterval, minMaxScaleByType, callEndpoint, load_to_db
+from app.models import Patient
 
 
 def home(request):
     context = {}
+
+    #load_to_db()
+
     return render(request, 'app/home.html', context)
 
 def form(request):
@@ -134,6 +138,57 @@ def result(request):
     
     else:
         return HttpResponseRedirect(reverse('app:home'))
+    
+def stroke(request):
+    stroke_data = list(Patient.objects.filter(stroke=1).values())
+
+    return JsonResponse(stroke_data, safe=False)
+
+def no_stroke(request):
+    stroke_data = list(Patient.objects.filter(stroke=0).values())
+
+    return JsonResponse(stroke_data, safe=False)
+
+def filter(request):
+    gender = request.GET.get('gender', 'Unavailable')
+    age = request.GET.get('age', 'Unavailable')
+    hypertension = request.GET.get('hypertension', 'Unavailable')
+    heart_disease = request.GET.get('heart_disease', 'Unavailable')
+    ever_married = request.GET.get('ever_married', 'Unavailable')
+    work_type = request.GET.get('work_type', 'Unavailable')
+    residence_type = request.GET.get('residence_type', 'Unavailable')
+    avg_glucose_level = request.GET.get('avg_glucose_level', 'Unavailable')
+    bmi = request.GET.get('bmi', 'Unavailable')
+    smoking_status = request.GET.get('smoking_status', 'Unavailable')
+    stroke = request.GET.get('stroke', 'Unavailable')
+    stroke_data = Patient.objects.all().values()
+    if(gender != 'Unavailable'):
+        stroke_data = stroke_data.filter(gender=gender).values()
+    if(age != 'Unavailable'):
+        stroke_data = stroke_data.filter(age = age).values()
+    if(hypertension != 'Unavailable'):
+        stroke_data = stroke_data.filter(hypertension = hypertension).values()
+    if(heart_disease != 'Unavailable'):
+        stroke_data = stroke_data.filter(heart_disease = heart_disease).values()
+    if(ever_married != 'Unavailable'):
+        stroke_data = stroke_data.filter(ever_married = ever_married).values()
+    if(work_type != 'Unavailable'):
+        stroke_data = stroke_data.filter(work_type = work_type).values()
+    if(residence_type != 'Unavailable'):
+        stroke_data = stroke_data.filter(residence_type = residence_type).values()
+    if(avg_glucose_level != 'Unavailable'):
+        stroke_data = stroke_data.filter(avg_glucose_level = avg_glucose_level).values()
+    if(bmi != 'Unavailable'):
+        stroke_data = stroke_data.filter(bmi = bmi).values()
+    if(smoking_status != 'Unavailable'):
+        stroke_data = stroke_data.filter(smoking_status = smoking_status).values()
+    if(stroke != 'Unavailable'):
+        stroke_data = stroke_data.filter(stroke = stroke).values()
+        
+    stroke_data = list(stroke_data)
+
+    return JsonResponse(stroke_data, safe=False)
+
 
 
 

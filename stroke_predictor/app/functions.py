@@ -1,3 +1,6 @@
+import csv
+from app.models import Patient
+
 def getPercentageFromInterval(age, bmi, glucose_level):
     ageIntervals = [4.0, 10.0, 16.0, 20.0, 25.0, 29.0, 33.0, 37.0, 41.0, 44.0, 48.0, 51.0, 54.0, 57.0, 60.0, 64.0, 69.0, 74.0, 79.0, 82.0]
     bmiIntervals = [17.6, 19.7, 21.2, 22.5, 23.5, 24.5, 25.5, 26.4, 27.2, 28.0, 28.9, 29.8, 30.8, 31.9, 33.1, 34.5, 36.3, 38.9, 42.9, 97.6]
@@ -95,3 +98,15 @@ def callEndpoint(payload):
         # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
         print(error.info())
         print(error.read().decode("utf8", 'ignore'))
+
+def load_to_db():
+
+    with open('app\healthcare-dataset-stroke-data.csv') as csv_file:
+        data = csv.reader(csv_file, delimiter=',')
+        next(data)
+        for row in data:
+            try:
+                patient = Patient(int(row[0]), row[1], int(row[2]), int(row[3]), int(row[4]), row[5], row[6], row[7], float(row[8]), float(row[9]), row[10], int(row[11]))
+                patient.save()
+            except:
+                continue
